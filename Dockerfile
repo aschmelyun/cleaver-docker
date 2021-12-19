@@ -3,6 +3,7 @@ FROM node:current-alpine
 LABEL maintainer="Andrew Schmelyun <me@aschmelyun.com>"
 
 RUN mkdir -p /var/www
+RUN mkdir -p /var/docker
 
 WORKDIR /var/www
 
@@ -41,8 +42,8 @@ EXPOSE 8080
 EXPOSE 3000
 EXPOSE 3001
 
-ADD ./docker-entrypoint.sh docker-entrypoint.sh
+ADD ./docker-entrypoint.sh /var/docker/docker-entrypoint.sh
 
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x /var/docker/docker-entrypoint.sh
 
-ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/var/docker/docker-entrypoint.sh"]
